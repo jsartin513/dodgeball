@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div>---------Midline-----------</div>
+    <div>
+      ------------------------------------Midline--------------------------------------
+    </div>
     <div v-if="playersInitialized">
       <DepthLine :players="frontLine" />
       <DepthLine :players="midLine" />
