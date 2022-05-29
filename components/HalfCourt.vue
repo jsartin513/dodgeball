@@ -48,6 +48,13 @@ export default {
       })
       return [rowA, rowB, rowC]
     },
+    playList() {
+      return [
+        [this.moveUpOne, []],
+        [this.pumpFake, [1, 4]],
+        [this.throwBall, [0]],
+      ]
+    },
   },
   created() {
     this.initPlayerPositions()
@@ -68,9 +75,11 @@ export default {
       ]
     },
     runPlaySet() {
-      this.moveUpOne()
-      this.pumpFake([1, 4])
-      this.throwBall([0])
+      this.playList.forEach((play) => {
+        const playToCall = play[0]
+        const playParams = [...play[1]]
+        playToCall(playParams)
+      })
     },
     moveUpOne() {
       const newPositions = this.playerPositions.map((existing) => {
@@ -101,7 +110,7 @@ export default {
       this.playerPositions = newPositions
       setTimeout(() => {
         this.cleanupThrownBalls()
-      }, 1000)
+      }, 4000)
     },
     cleanupThrownBalls() {
       const newPositions = this.playerPositions.map((existing, idx) => {
