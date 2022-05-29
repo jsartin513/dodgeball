@@ -10,7 +10,20 @@
         :positions="line"
       />
     </div>
-    <div></div>
+    <div>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        @click="initPlayerPositions"
+      >
+        Reset
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        @click="moveUpOne()"
+      >
+        Start Play
+      </button>
+    </div>
   </div>
 </template>
 
@@ -39,6 +52,9 @@ export default {
   created() {
     this.initPlayerPositions()
     this.playersInitialized = true
+    setTimeout(() => {
+      this.moveUpOne()
+    }, 1000)
   },
   methods: {
     initPlayerPositions() {
@@ -50,6 +66,15 @@ export default {
         { ball: 'ball', number: 5, position: 'back' },
         { number: 6, position: 'back' },
       ]
+    },
+    moveUpOne() {
+      const newPositions = this.playerPositions.map((existing) => {
+        if (existing.ball) {
+          existing.position = 'front'
+        }
+        return existing
+      })
+      this.playerPositions = newPositions
     },
   },
 }
