@@ -10,7 +10,20 @@
         :positions="line"
       />
     </div>
-    <div></div>
+    <div>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        @click="initPlayerPositions"
+      >
+        Reset
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        @click="runPlaySet()"
+      >
+        Start Play
+      </button>
+    </div>
   </div>
 </template>
 
@@ -39,17 +52,65 @@ export default {
   created() {
     this.initPlayerPositions()
     this.playersInitialized = true
+    setTimeout(() => {
+      this.runPlaySet()
+    }, 1000)
   },
   methods: {
     initPlayerPositions() {
       this.playerPositions = [
-        { ball: 'burden', number: 1, position: 'back' },
+        { ball: 'ball burden', number: 1, position: 'back' },
         { ball: 'ball', number: 2, position: 'back' },
         { number: 3, position: 'back' },
         { number: 4, position: 'back' },
         { ball: 'ball', number: 5, position: 'back' },
         { number: 6, position: 'back' },
       ]
+    },
+    runPlaySet() {
+      this.moveUpOne()
+      this.pumpFake([1, 4])
+      this.throwBall([0])
+    },
+    moveUpOne() {
+      const newPositions = this.playerPositions.map((existing) => {
+        if (existing.ball) {
+          existing.position = 'front'
+          existing.classes += ' runtofront'
+        }
+        return existing
+      })
+      this.playerPositions = newPositions
+    },
+    pumpFake(pumpingIndices) {
+      const newPositions = this.playerPositions.map((existing, idx) => {
+        if (pumpingIndices.includes(idx)) {
+          existing.ball += ' pumpfake'
+        }
+        return existing
+      })
+      this.playerPositions = newPositions
+    },
+    throwBall(throwIndices) {
+      const newPositions = this.playerPositions.map((existing, idx) => {
+        if (throwIndices.includes(idx)) {
+          existing.ball += ' throw'
+        }
+        return existing
+      })
+      this.playerPositions = newPositions
+      setTimeout(() => {
+        this.cleanupThrownBalls()
+      }, 1000)
+    },
+    cleanupThrownBalls() {
+      const newPositions = this.playerPositions.map((existing, idx) => {
+        if (existing.ball && existing.ball.endsWith('throw')) {
+          existing.ball = null
+        }
+        return existing
+      })
+      this.playerPositions = newPositions
     },
   },
 }
