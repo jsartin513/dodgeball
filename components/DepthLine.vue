@@ -50,6 +50,10 @@ export default {
 .burden {
   background-color: blue;
 }
+.throw {
+  width: 0%;
+  height: 0%;
+}
 
 .runtofront {
   animation-duration: 1s;
@@ -57,11 +61,13 @@ export default {
 }
 .pumpfake {
   animation-duration: 1s;
+  animation-delay: 1s;
   animation-name: pumpfake;
   animation-iteration-count: 3;
 }
 .throw {
   animation-duration: 1s;
+  animation-delay: 3s;
   animation-name: throw;
   animation-iteration-count: 1;
 }
@@ -77,11 +83,18 @@ export default {
 }
 @keyframes throw {
   from {
-    margin-top: 200%;
+    width: 120%;
+    height: 80%;
   }
 
+  90% {
+    width: 50%;
+    height: 50%;
+  }
   to {
-    margin-top: 0%;
+    width: 0%;
+    height: 0%;
+    background-color: gold;
   }
 }
 
