@@ -4,10 +4,13 @@
       ------------------------------------Midline--------------------------------------
     </div>
     <div v-if="playersInitialized">
-      <DepthLine :players="frontLine" />
-      <DepthLine :players="midLine" />
-      <DepthLine :players="backLine" />
+      <DepthLine
+        v-for="(line, idx) in depthLines"
+        :key="idx"
+        :positions="line"
+      />
     </div>
+    <div></div>
   </div>
 </template>
 
@@ -20,32 +23,17 @@ export default {
     return { playersInitialized: false, playerPositions: null }
   },
   computed: {
-    frontLine() {
-      return this.playerPositions.map((player) => {
-        let spotMarker = 'empty'
-        if (player.position === 'front') {
-          spotMarker = player.ball
-        }
-        return spotMarker
+    depthLines() {
+      const rowA = this.playerPositions.map((player) => {
+        return player.position === 'front' ? player : null
       })
-    },
-    midLine() {
-      return this.playerPositions.map((player) => {
-        let spotMarker = 'empty'
-        if (player.position === 'mid') {
-          spotMarker = player.ball
-        }
-        return spotMarker
+      const rowB = this.playerPositions.map((player) => {
+        return player.position === 'mid' ? player : null
       })
-    },
-    backLine() {
-      return this.playerPositions.map((player) => {
-        let spotMarker = 'empty'
-        if (player.position === 'back') {
-          spotMarker = player.ball === undefined ? 'gold' : player.ball
-        }
-        return spotMarker
+      const rowC = this.playerPositions.map((player) => {
+        return player.position === 'back' ? player : null
       })
+      return [rowA, rowB, rowC]
     },
   },
   created() {
@@ -55,11 +43,11 @@ export default {
   methods: {
     initPlayerPositions() {
       this.playerPositions = [
-        { ball: 'blue', number: 1, position: 'back' },
-        { ball: 'red', number: 2, position: 'back' },
+        { ball: 'burden', number: 1, position: 'back' },
+        { ball: 'ball', number: 2, position: 'back' },
         { number: 3, position: 'back' },
         { number: 4, position: 'back' },
-        { ball: 'red', number: 5, position: 'back' },
+        { ball: 'ball', number: 5, position: 'back' },
         { number: 6, position: 'back' },
       ]
     },
