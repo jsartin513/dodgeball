@@ -6,8 +6,8 @@
         :key="index"
         class="player-outer"
       >
-        <div v-if="position" class="has-player">
-          <div v-if="position.ball" :class="`ball ${position.ball}`" />
+        <div v-if="position" :class="`has-player ${position.classes}`">
+          <div v-if="position.ball" :class="`${position.ball}`" />
         </div>
       </li>
     </ul>
@@ -35,6 +35,7 @@ export default {
   margin: 11px 24px;
   width: 50%;
   height: 75%;
+  overflow: visible;
   background-color: gold;
 }
 
@@ -43,9 +44,42 @@ export default {
   width: 50%;
   height: 50%;
   padding: 24px;
+  overflow: visible;
   background-color: red;
 }
 .burden {
   background-color: blue;
+}
+
+.runtofront {
+  animation-duration: 1s;
+  animation-name: slidefrombottom;
+}
+.pumpfake {
+  animation-duration: 1s;
+  animation-name: pumpfake;
+  animation-iteration-count: 3;
+}
+
+@keyframes slidefrombottom {
+  from {
+    margin-top: 200%;
+  }
+
+  to {
+    margin-top: 0%;
+  }
+}
+
+@keyframes pumpfake {
+  from {
+    width: 120%;
+    height: 80%;
+  }
+
+  to {
+    width: 50%;
+    height: 50%;
+  }
 }
 </style>

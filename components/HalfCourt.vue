@@ -19,7 +19,7 @@
       </button>
       <button
         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        @click="moveUpOne()"
+        @click="runPlaySet()"
       >
         Start Play
       </button>
@@ -53,13 +53,13 @@ export default {
     this.initPlayerPositions()
     this.playersInitialized = true
     setTimeout(() => {
-      this.moveUpOne()
+      this.runPlaySet()
     }, 1000)
   },
   methods: {
     initPlayerPositions() {
       this.playerPositions = [
-        { ball: 'burden', number: 1, position: 'back' },
+        { ball: 'ball burden', number: 1, position: 'back' },
         { ball: 'ball', number: 2, position: 'back' },
         { number: 3, position: 'back' },
         { number: 4, position: 'back' },
@@ -67,10 +67,24 @@ export default {
         { number: 6, position: 'back' },
       ]
     },
+    runPlaySet() {
+      this.moveUpOne()
+      this.pumpFake([1, 4])
+    },
     moveUpOne() {
       const newPositions = this.playerPositions.map((existing) => {
         if (existing.ball) {
           existing.position = 'front'
+          existing.classes += ' runtofront'
+        }
+        return existing
+      })
+      this.playerPositions = newPositions
+    },
+    pumpFake(pumpingIndices) {
+      const newPositions = this.playerPositions.map((existing, idx) => {
+        if (pumpingIndices.includes(idx)) {
+          existing.ball += ' pumpfake'
         }
         return existing
       })
