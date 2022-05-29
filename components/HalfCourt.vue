@@ -70,6 +70,7 @@ export default {
     runPlaySet() {
       this.moveUpOne()
       this.pumpFake([1, 4])
+      this.throwBall([0])
     },
     moveUpOne() {
       const newPositions = this.playerPositions.map((existing) => {
@@ -85,6 +86,27 @@ export default {
       const newPositions = this.playerPositions.map((existing, idx) => {
         if (pumpingIndices.includes(idx)) {
           existing.ball += ' pumpfake'
+        }
+        return existing
+      })
+      this.playerPositions = newPositions
+    },
+    throwBall(throwIndices) {
+      const newPositions = this.playerPositions.map((existing, idx) => {
+        if (throwIndices.includes(idx)) {
+          existing.ball += ' throw'
+        }
+        return existing
+      })
+      this.playerPositions = newPositions
+      setTimeout(() => {
+        this.cleanupThrownBalls()
+      }, 1000)
+    },
+    cleanupThrownBalls() {
+      const newPositions = this.playerPositions.map((existing, idx) => {
+        if (existing.ball && existing.ball.endsWith('throw')) {
+          existing.ball = null
         }
         return existing
       })

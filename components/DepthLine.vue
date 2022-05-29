@@ -60,8 +60,22 @@ export default {
   animation-name: pumpfake;
   animation-iteration-count: 3;
 }
+.throw {
+  animation-duration: 1s;
+  animation-name: throw;
+  animation-iteration-count: 1;
+}
 
 @keyframes slidefrombottom {
+  from {
+    margin-top: 200%;
+  }
+
+  to {
+    margin-top: 0%;
+  }
+}
+@keyframes throw {
   from {
     margin-top: 200%;
   }
