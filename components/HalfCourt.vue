@@ -35,33 +35,6 @@ export default {
       })
       return [rowA, rowB, rowC]
     },
-    frontLine() {
-      return this.playerPositions.map((player) => {
-        let spotMarker = 'empty'
-        if (player.position === 'front') {
-          spotMarker = player.ball
-        }
-        return spotMarker
-      })
-    },
-    midLine() {
-      return this.playerPositions.map((player) => {
-        let spotMarker = 'empty'
-        if (player.position === 'mid') {
-          spotMarker = player.ball
-        }
-        return spotMarker
-      })
-    },
-    backLine() {
-      return this.playerPositions.map((player) => {
-        let spotMarker = 'empty'
-        if (player.position === 'back') {
-          spotMarker = player.ball === undefined ? 'player' : player.ball
-        }
-        return spotMarker
-      })
-    },
   },
   created() {
     this.initPlayerPositions()

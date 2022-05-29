@@ -20,21 +20,6 @@ export default {
   props: {
     positions: { type: Array, required: true },
   },
-  methods: {
-    getClasses(position) {
-      const classes = []
-      if (position) {
-        classes.push('has-player')
-        if (position.ball) {
-          classes.push('ball')
-          if (position.ball === 'blue') {
-            classes.push('burden')
-          }
-        }
-      }
-      return classes
-    },
-  },
 }
 </script>
 
